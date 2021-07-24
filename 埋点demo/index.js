@@ -19,8 +19,12 @@ window.onload = function () {
 
   // 产品列表界面
   function prodListFun(pageDom) {
-    pageDom.querySelector(".prodlist-parameter-wrap a").addEventListener("click", prodListClick);
-    pageDom.querySelector(".prodlist-cell a").addEventListener("click", prodListClick);
+    if ( pageDom.querySelector(".prodlist-parameter-wrap a")){
+      pageDom.querySelector(".prodlist-parameter-wrap a").addEventListener("click", prodListClick);
+    }
+    if(pageDom.querySelector(".prodlist-cell a")){
+      pageDom.querySelector(".prodlist-cell a").addEventListener("click", prodListClick);
+    }
     function prodListClick() {
       var product = {
         id:'',
@@ -39,29 +43,31 @@ window.onload = function () {
     var product = {
       id:productInfoDom.querySelector("input[name='id']").value,
       name:productInfoDom.querySelector("input[name='name']").value,
-      category:productInfoDom.querySelector("input[name='category']").value
+      category:""
     };
     sendHit.seeProdDetailproduct(product);
-    // prodCartFun(pageDom,productInfoDom);// 加入购物车
-    // paypalFun();  // paypal支付
+    prodCartFun(pageDom,productInfoDom);// 加入购物车
+    paypalFun(pageDom);  // paypal支付
   }
 
   // 加入购物车
   function prodCartFun(pageDom,productInfoDom){
-    pageDom.querySelector("a.pro-detail-cart").addEventListener('click',function(){
-      var id =  productInfoDom.querySelector("input[name='id']").value;
-      var name =  productInfoDom.querySelector("input[name='name']").value;
-      var product = {
-         id:id,
-         name: name,
-         category: '',
-         brand: '',
-         variant: '',
-         price: '',
-         quantity: ''
-      }
-      sendHit.addToCart(product);
-    });
+    if (pageDom.querySelector("a.pro-detail-cart")){
+      pageDom.querySelector("a.pro-detail-cart").addEventListener('click',function(){
+        var id =  productInfoDom.querySelector("input[name='id']").value;
+        var name =  productInfoDom.querySelector("input[name='name']").value;
+        var product = {
+           id:id,
+           name: name,
+           category: '',
+           brand: '',
+           variant: '',
+           price: '',
+           quantity: ''
+        }
+        sendHit.addToCart(product);
+      });
+    }
   }
 
   // 移出购物车
@@ -74,29 +80,32 @@ window.onload = function () {
 
   // buy now
   function paymentFun(){
-    document.querySelector("#submitOrder a.place-order").addEventListener("click",function(){
-      var product={
+    if (document.querySelector("#submitOrder a.place-order")){
+      document.querySelector("#submitOrder a.place-order").addEventListener("click",function(){
+        var product={
 
-      };
-      var purchase = {
+        };
+        var purchase = {
 
-      };
-      sendHit.buyProduct(product,purchase);
-    });
+        };
+        sendHit.buyProduct(product,purchase);
+      });
+    }
   }
   // paypal
-  function paypalFun(){
-    pageDom.querySelector("#paypalBtn").addEventListener("click",function(){
-      var product={
+  function paypalFun(pageDom){
+    if (pageDom.querySelector("#paypalBtn")){
+      pageDom.querySelector("#paypalBtn").addEventListener("click",function(){
+        var product={
 
-      };
-      var purchase = {
+        };
+        var purchase = {
 
-      };
-      sendHit.buyProduct(product,purchase);
-    });
+        };
+        sendHit.buyProduct(product,purchase);
+      });
+    }
   }
-
 }
 
 
