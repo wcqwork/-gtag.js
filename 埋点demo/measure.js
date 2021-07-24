@@ -36,7 +36,7 @@ function seeProdDetailproduct(product){
     'category':product.category
   });
   ga('ec:setAction', 'detail');
-  ga('send', 'event', 'prodDetailView', prodId, prodName);
+  ga('send', 'event', 'prodDetailView',  product.id, product.name);
  }
 
 // 添加到购物车

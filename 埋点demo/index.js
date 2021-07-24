@@ -2,7 +2,6 @@
  *  ga 检测代码
  */
 window.onload = function () {
-  ga("create", "UA-192566483-1");
   var sendHit = new measureHelp();//命中对象
   InitCurrentPage();
 
@@ -15,7 +14,7 @@ window.onload = function () {
     } else if (currentPage_prodDetail) {
       prodDetailFun(currentPage_prodDetail);
     }
-    paymentFun(); //buy now
+    // paymentFun(); //buy now
   }
 
   // 产品列表界面
@@ -43,16 +42,18 @@ window.onload = function () {
       category:productInfoDom.querySelector("input[name='category']").value
     };
     sendHit.seeProdDetailproduct(product);
-    prodCartFun();// 加入购物车
-    paypalFun();  // paypal支付
+    // prodCartFun(pageDom,productInfoDom);// 加入购物车
+    // paypalFun();  // paypal支付
   }
 
   // 加入购物车
-  function prodCartFun(pageDom){
+  function prodCartFun(pageDom,productInfoDom){
     pageDom.querySelector("a.pro-detail-cart").addEventListener('click',function(){
+      var id =  productInfoDom.querySelector("input[name='id']").value;
+      var name =  productInfoDom.querySelector("input[name='name']").value;
       var product = {
-        id: productInfoDom.querySelector("input[name='id']").value,
-         name: productInfoDom.querySelector("input[name='name']").value,
+         id:id,
+         name: name,
          category: '',
          brand: '',
          variant: '',
